@@ -35,15 +35,15 @@ def main():
 
 
 def help_message():
-    print("This tool is built to communicate with OpenAI GPT3 from the terminal.")
-    print("The usage is simple, just pass the prompt as argument to this tool.")
-    print("Before starting to send requests you must configure your api key, to configure valuables you can use the --configure command")
-    print("The --configure command accept 2 arguments, KEY and VALUE")
-    print("The available variables are:")
-    print("\topenaikey -> The API Key to use when calling OpenAI API (required)")
-    print("\tmax_tokens -> Max number of words in the response default to 300 (optional)")
-    print("\ttemperature -> The model temperature default to 0.8 (optional)")
-    print("To see all of the current configuration, use the --show-vars command")
+    print("""This tool is built to communicate with OpenAI GPT3 from the terminal.
+          The usage is simple, just pass the prompt as argument to this tool.
+        Before starting to send requests you must configure your api key, to configure valuables you can use the --configure command
+        The --configure command accept 2 arguments, KEY and VALUE
+        The available variables are:
+        \topenaikey -> The API Key to use when calling OpenAI API (required)
+        \tmax_tokens -> Max number of words in the response default to 300 (optional)
+        \ttemperature -> The model temperature default to 0.8 (optional)
+        To see all of the current configuration, use the --show-vars command""")
 
 
 def show_vars():
@@ -72,8 +72,8 @@ def request():
 
 def configure():
     if len(sys.argv) != 4:
-        print("ERROR: expecting 2 arguments after --configure, for example:\n")
-        print("     pygptcli --configure openaikey <YOUR_KEY>\n")
+        print("""ERROR: expecting 2 arguments after --configure, for example:\n
+        \tpygptcli --configure openaikey <YOUR_KEY>\n""")
         exit(0)
 
     key = sys.argv[2]
@@ -86,10 +86,10 @@ def configure():
 def get_response_iter(prompt: str) -> iter:
     openai.api_key = get_key("openaikey")
     if not openai.api_key:
-        print(Fore.RED + "ERROR: openai key not configured")
-        print("You can use the nex command to configure it:\n")
-        print("     pygptcli --configure openaikey <YOUR_KEY>\n")
-        print("You can find your key here -> https://platform.openai.com/account/api-keys" + Style.RESET_ALL)
+        print(Fore.RED + """ERROR: openai key not configured
+        You can use the nex command to configure it:\n
+        \tpygptcli --configure openaikey <YOUR_KEY>\n
+        You can find your key here -> https://platform.openai.com/account/api-keys""" + Style.RESET_ALL)
         return
 
     response = openai.Completion.create(
